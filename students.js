@@ -26,19 +26,21 @@ var students = [
     Address: "Kajaanintie 08,90130,OULU"
   }
 ];
+router.post("/", function(req, res) {
+  //Check if all fields are provided and are valid:
 
-router.get("/:id([0-9]{3,})", function(req, res) {
-  var currStudent = students.filter(function(student) {
-    if (student.id == req.params.id) {
-      return true;
-    }
+  var newId = students[students.length - 1].id + 1;
+  students.push({
+    id: newId,
+    name: req.body.name,
+    class: req.body.class,
+    Address: req.body.Address
   });
-  if (currStudent.length == 1) {
-    res.json(currStudent[0]);
-  } else {
-    res.status(404); //Set status to 404 as movie was not found
-    res.json({ message: "Not Found" });
-  }
+  res.json({
+    message: "New student created.",
+    location: "/students/" + newId
+  });
 });
+
 //Routes will go here
 module.exports = router;
