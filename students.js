@@ -26,37 +26,18 @@ var students = [
     Address: "Kajaanintie 08,90130,OULU"
   }
 ];
-router.put("/:id", function(req, res) {
-  var updateIndex = students
+router.delete("/:id", function(req, res) {
+  var removeIndex = students
     .map(function(student) {
       return student.id;
     })
-    .indexOf(parseInt(req.params.id));
+    .indexOf(req.params.id); //Gets us the index of student with given id.
 
-  if (updateIndex === -1) {
-    //student not found, create new
-    students.push({
-      id: req.params.id,
-      name: req.body.name,
-      class: req.body.year,
-      Address: req.body.rating
-    });
-    res.json({
-      message: "New student created.",
-      location: "/students/" + req.params.id
-    });
+  if (removeIndex === -1) {
+    res.json({ message: "Not found" });
   } else {
-    //Update existing student
-    students[updateIndex] = {
-      id: req.params.id,
-      name: req.body.name,
-      class: req.body.year,
-      Address: req.body.rating
-    };
-    res.json({
-      message: "Student id " + req.params.id + " updated.",
-      location: "/students/" + req.params.id
-    });
+    students.splice(removeIndex, 1);
+    res.send({ message: "Student id " + req.params.id + " removed." });
   }
 });
 
