@@ -26,20 +26,38 @@ var students = [
     Address: "Kajaanintie 08,90130,OULU"
   }
 ];
-router.post("/", function(req, res) {
-  //Check if all fields are provided and are valid:
+router.put("/:id", function(req, res) {
+  var updateIndex = students
+    .map(function(student) {
+      return student.id;
+    })
+    .indexOf(parseInt(req.params.id));
 
-  var newId = students[students.length - 1].id + 1;
-  students.push({
-    id: newId,
-    name: req.body.name,
-    class: req.body.class,
-    Address: req.body.Address
-  });
-  res.json({
-    message: "New student created.",
-    location: "/students/" + newId
-  });
+  if (updateIndex === -1) {
+    //student not found, create new
+    students.push({
+      id: req.params.id,
+      name: req.body.name,
+      class: req.body.year,
+      Address: req.body.rating
+    });
+    res.json({
+      message: "New student created.",
+      location: "/students/" + req.params.id
+    });
+  } else {
+    //Update existing student
+    students[updateIndex] = {
+      id: req.params.id,
+      name: req.body.name,
+      class: req.body.year,
+      Address: req.body.rating
+    };
+    res.json({
+      message: "Student id " + req.params.id + " updated.",
+      location: "/students/" + req.params.id
+    });
+  }
 });
 
 //Routes will go here
