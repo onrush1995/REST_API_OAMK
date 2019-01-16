@@ -27,8 +27,18 @@ var students = [
   }
 ];
 
-router.get("/", function(req, res) {
-  res.json(students);
+router.get("/:id([0-9]{3,})", function(req, res) {
+  var currStudent = students.filter(function(student) {
+    if (student.id == req.params.id) {
+      return true;
+    }
+  });
+  if (currStudent.length == 1) {
+    res.json(currStudent[0]);
+  } else {
+    res.status(404); //Set status to 404 as movie was not found
+    res.json({ message: "Not Found" });
+  }
 });
 //Routes will go here
 module.exports = router;
