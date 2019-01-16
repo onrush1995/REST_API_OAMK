@@ -73,7 +73,7 @@ router.put("/:id", function(req, res) {
       id: req.params.id,
       name: req.body.name,
       class: req.body.year,
-      Address: req.body.rating
+      Address: req.body.Address
     });
     res.json({
       message: "New student created.",
@@ -84,8 +84,8 @@ router.put("/:id", function(req, res) {
     students[updateIndex] = {
       id: req.params.id,
       name: req.body.name,
-      class: req.body.year,
-      Address: req.body.rating
+      class: req.body.class,
+      Address: req.body.Address
     };
     res.json({
       message: "Student id " + req.params.id + " updated.",
@@ -106,8 +106,8 @@ router.put("/:id", function(req, res) {
     students.push({
       id: req.params.id,
       name: req.body.name,
-      class: req.body.year,
-      Address: req.body.rating
+      class: req.body.class,
+      Address: req.body.Address
     });
     res.json({
       message: "New student created.",
@@ -118,8 +118,8 @@ router.put("/:id", function(req, res) {
     students[updateIndex] = {
       id: req.params.id,
       name: req.body.name,
-      class: req.body.year,
-      Address: req.body.rating
+      class: req.body.class,
+      Address: req.body.Address
     };
     res.json({
       message: "Student id " + req.params.id + " updated.",
