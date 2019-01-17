@@ -62,19 +62,12 @@ router.put("/:id", function(req, res) {
   }
 });
 
-router.delete("/:id", function(req, res) {
-  var removeIndex = grades
-    .map(function(grade) {
-      return grade.id;
-    })
-    .indexOf(req.params.id); //Gets us the index of course with given id.
-
-  if (removeIndex === -1) {
-    res.json({ message: "Not found" });
-  } else {
-    grades.splice(removeIndex, 1);
-    res.send({ message: "Grade " + req.params.id + " removed." });
-  }
+//Delete
+router.delete("/:id", (req, res) => {
+  let finder = grades.findIndex(x => x.id == req.params.id);
+  finder >= 0
+    ? (grades.splice(finder, 1), res.send("Removal Completed"))
+    : res.send("Record Not Found");
 });
 //Routes will go here
 module.exports = router;

@@ -128,19 +128,12 @@ router.put("/:id", function(req, res) {
   }
 });
 
-router.delete("/:id", function(req, res) {
-  var removeIndex = students
-    .map(function(student) {
-      return student.id;
-    })
-    .indexOf(req.params.id); //Gets us the index of student with given id.
-
-  if (removeIndex === -1) {
-    res.json({ message: "Not found" });
-  } else {
-    students.splice(removeIndex, 1);
-    res.send({ message: "Student id " + req.params.id + " removed." });
-  }
+//Delete
+router.delete("/:id", (req, res) => {
+  let finder = students.findIndex(x => x.id == req.params.id);
+  finder >= 0
+    ? (students.splice(finder, 1), res.send("Removal Complete"))
+    : res.send("Record Not Found");
 });
 
 //Routes will go here
