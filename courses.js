@@ -10,7 +10,7 @@ router.get("/", function(req, res) {
 });
 
 router.get("/:id([0-9]{3,})", function(req, res) {
-  res.json(courses);
+  //res.json(courses);
   var currCourse = courses.filter(function(course) {
     if (course.id == req.params.id) {
       return true;

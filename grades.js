@@ -9,6 +9,23 @@ router.get("/", function(req, res) {
   res.json(grades);
 });
 
+
+router.get("/:id([0-9]{3,})", function(req, res) {
+  //res.json(students);
+  var currGrade = grades.filter(function(grade) {
+    if (grade.id == req.params.id) {
+      return true;
+    }
+  });
+  if (currGrade.length == 1) {
+    res.json(currGrade[0]);
+  } else {
+    res.status(404); 
+    res.json({ message: "Not Found" });
+  }
+});
+
+
 router.post("/", function(req, res) {
   //Check if all fields are provided and are valid:
 
@@ -69,5 +86,5 @@ router.delete("/:id", (req, res) => {
     ? (grades.splice(finder, 1), res.send("Removal Completed"))
     : res.send("Record Not Found");
 });
-//Routes will go here
+
 module.exports = router;

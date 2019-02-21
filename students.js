@@ -30,7 +30,7 @@ router.get("/", function(req, res) {
   res.json(students);
 });
 router.get("/:id([0-9]{3,})", function(req, res) {
-  res.json(students);
+  //res.json(students);
   var currStudent = students.filter(function(student) {
     if (student.id == req.params.id) {
       return true;
@@ -39,7 +39,7 @@ router.get("/:id([0-9]{3,})", function(req, res) {
   if (currStudent.length == 1) {
     res.json(currStudent[0]);
   } else {
-    res.status(404); //Set status to 404 as movie was not found
+    res.status(404); 
     res.json({ message: "Not Found" });
   }
 });
